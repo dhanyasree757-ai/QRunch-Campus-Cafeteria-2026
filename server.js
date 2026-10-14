@@ -245,9 +245,13 @@ app.post('/api/pickup/verify', auth('vendor'), (req,res) => {
 
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/common.js', (req,res) => res.sendFile(path.join(__dirname,'public/common.js')));
-app.get('/student', (req,res) => res.sendFile(path.join(__dirname,'public/student/student.html')));
+app.get('/student', (req, res) => {
+  res.sendFile(path.join(__dirname, 'student/student.html'));
+});
 app.use('/student', express.static(path.join(__dirname,'public/student')));
-app.get('/vendor', (req,res) => res.sendFile(path.join(__dirname,'public/vendor/vendor.html')));
+app.get('/vendor', (req, res) => {
+  res.sendFile(path.join(__dirname, 'vendor/vendor.html'));
+});
 app.use('/vendor', express.static(path.join(__dirname,'public/vendor')));
 app.get('/', (req,res) => res.sendFile(path.join(__dirname,'index.html')));
 app.get('/auth', (req,res) => res.sendFile(path.join(__dirname,'public/auth.html')));
