@@ -288,4 +288,5 @@ app.listen(PORT, () =>
 );
 
 app.use((err,req,res,next)=>{ console.error(err); res.status(500).json({ error:'Unexpected server error.' }); });
+console.log('QRunch startup: routes configured; starting server');
 app.listen(PORT,()=>console.log(`QRunch server running at http://localhost:${PORT}`));
