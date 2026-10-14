@@ -243,17 +243,49 @@ app.post('/api/pickup/verify', auth('vendor'), (req,res) => {
  res.json({ order:formatOrder(order.id), message:'Pickup verified. Order marked collected.' });
 });
 
-app.use(express.static(path.join(__dirname,'public')));
-app.get('/common.js', (req,res) => res.sendFile(path.join(__dirname,'public/common.js')));
+
+app.get('/common.js', (req, res) =>
+  res.sendFile(path.join(__dirname, 'common.js'))
+);
+
+app.get('/auth.js', (req, res) =>
+  res.sendFile(path.join(__dirname, 'auth.js'))
+);
+
 app.get('/student', (req, res) => {
-  res.sendFile(path.join(__dirname, 'student/student.html'));
+  res.sendFile(path.join(__dirname, 'student', 'student.html'));
 });
-app.use('/student', express.static(path.join(__dirname,'public/student')));
+app.use('/student', express.static(path.join(__dirname, 'student')));
+
 app.get('/vendor', (req, res) => {
-  res.sendFile(path.join(__dirname, 'vendor/vendor.html'));
+  res.sendFile(path.join(__dirname, 'vendor', 'vendor.html'));
 });
-app.use('/vendor', express.static(path.join(__dirname,'public/vendor')));
-app.get('/', (req,res) => res.sendFile(path.join(__dirname,'index.html')));
-app.get('/auth', (req,res) => res.sendFile(path.join(__dirname,'public/auth.html')));
+app.use('/vendor', express.static(path.join(__dirname, 'vendor')));
+
+app.get('/hero-food.png', (req, res) =>
+  res.sendFile(path.join(__dirname, 'hero-food.png'))
+);
+
+app.get('/qrunch-logo.png', (req, res) =>
+  res.sendFile(path.join(__dirname, 'qrunch-logo.png'))
+);
+
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, 'index.html'))
+);
+
+app.get('/auth', (req, res) =>
+  res.sendFile(path.join(__dirname, 'auth.html'))
+);
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Unexpected server error.' });
+});
+
+app.listen(PORT, () =>
+  console.log(`QRunch server running on port ${PORT}`)
+);
+
 app.use((err,req,res,next)=>{ console.error(err); res.status(500).json({ error:'Unexpected server error.' }); });
 app.listen(PORT,()=>console.log(`QRunch server running at http://localhost:${PORT}`));
