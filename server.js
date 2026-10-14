@@ -273,9 +273,11 @@ app.get('/qrunch-logo.png', (req, res) => {
   res.sendFile(path.join(__dirname, 'qrunch-logo.png'));
 });
 
-app.get('/auth', (req, res) => {
+
+app.get('/auth.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'auth.html'));
 });
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
